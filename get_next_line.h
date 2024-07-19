@@ -17,15 +17,15 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-void    ft_bzero(void *s, size_t n);
-void    *ft_calloc(size_t count, size_t size);
-size_t  ft_strlen(const char *s);
-char    *ft_strchr(const char *s, int c);
-char    *ft_strjoin(char const *s1, char const *s2);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 char	*join(char *line, char *res);
 char	*free_line(char *line);

@@ -18,10 +18,8 @@ char	*join(char *line, char *res)
 	char	*temp;
 
 	temp = ft_strjoin(line, res);
-	// if (temp == NULL)
-	// 	return (NULL);
 	free(line);
-	return temp;
+	return (temp);
 }
 
 char	*free_line(char *line)
@@ -51,9 +49,9 @@ char	*extract_next_line(char *line)
 {
 	int		i;
 	char	*next_line;
-	
+
 	i = 0;
-	if(!*(line + i))
+	if (!*(line + i))
 		return (NULL);
 	while (*(line + i) && *(line + i) != '\n')
 		i++;
@@ -75,7 +73,7 @@ char	*extract_line(char *line, int fd)
 	int		size;
 
 	if (!line)
-		line = ft_calloc(1,1);
+		line = ft_calloc(1, 1);
 	res = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	size = 1;
 	while (size > 0)
@@ -89,7 +87,7 @@ char	*extract_line(char *line, int fd)
 		res[size] = '\0';
 		line = join(line, res);
 		if (ft_strchr(res, '\n'))
-			break;
+			break ;
 	}
 	free(res);
 	return (line);
