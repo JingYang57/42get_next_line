@@ -13,83 +13,13 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-size_t  ft_strlen(const char *s)
-{
-        size_t  length;
-
-        length = 0;
-        while (*(s + length) != '\0')
-                length++;
-        return (length);
-}
-
-char    *ft_strdup(const char *s1)
-{
-        int		length;
-        int		i;
-        char    *dup;
-
-        length = ft_strlen(s1);
-        dup = (char *)malloc(length + 1 * sizeof(char));
-        if (dup == NULL)
-                return (NULL);
-        i = 0;
-        while (i < length)
-        {
-                dup[i] = s1[i];
-                i++;
-        }
-        dup[i] = '\0';
-        return (dup);
-}
-
-char    *ft_strchr(const char *s, int c)
-{
-        size_t  i;
-        size_t  len;
-        char    *res;
-
-        len = ft_strlen(s);
-        i = -1;
-        res = (char *)s;
-        while (++i <= len)
-                if (*(res + i) == (char)c)
-                        return (res + i);
-        return (NULL);
-}
-
-char    *ft_strjoin(char const *s1, char const *s2)
-{
-        unsigned int    totallen;
-        unsigned int    i;
-        char                    *res;
-
-        if (!s1 || !s2)
-                return (0);
-        totallen = ft_strlen(s1) + ft_strlen(s2);
-        res = (char *) malloc(sizeof(char) * (totallen + 1));
-        if (res == NULL)
-                return (NULL);
-        i = -1;
-        while (++i < ft_strlen(s1))
-                *(res + i) = *(s1 + i);
-        while (i < totallen)
-        {
-                *(res + i) = *s2;
-                s2++;
-                i++;
-        }
-        *(res + i) = '\0';
-        return (res);
-}
-
 char	*join(char *line, char *res)
 {
 	char	*temp;
 
 	temp = ft_strjoin(line, res);
-	if (temp == NULL)
-		return (NULL);
+	// if (temp == NULL)
+	// 	return (NULL);
 	free(line);
 	return temp;
 }
@@ -108,26 +38,13 @@ char	*free_line(char *line)
 		free(line);
 		return (NULL);
 	}
-	temp = malloc(sizeof(char) * (ft_strlen(line) - i + 1));
+	temp = ft_calloc((ft_strlen(line) - i + 1), sizeof(char));
 	i++;
 	j = 0;
 	while (*(line + i))
 		*(temp + j++) = *(line + i++);
 	free(line);
 	return (temp);
-
-	// char	*new_line_pos;
-	// char	*temp;
-
-	// new_line_pos = ft_strchr(line, '\n');
-	// if (!new_line_pos)
-	// {
-	// 	free(line);
-	// 	return (NULL);
-	// }
-	// temp = ft_strdup(new_line_pos + 1);
-	// free(line);
-	// return (temp);
 }
 
 char	*extract_next_line(char *line)
@@ -136,11 +53,11 @@ char	*extract_next_line(char *line)
 	char	*next_line;
 	
 	i = 0;
-	if(!line[i])
+	if(!*(line + i))
 		return (NULL);
 	while (*(line + i) && *(line + i) != '\n')
 		i++;
-	next_line = malloc((i + 2) * sizeof(char));
+	next_line = ft_calloc((i + 2), sizeof(char));
 	i = 0;
 	while (*(line + i) && *(line + i) != '\n')
 	{
@@ -158,10 +75,8 @@ char	*extract_line(char *line, int fd)
 	int		size;
 
 	if (!line)
-		line = malloc(1);
-	res = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (res == NULL)
-		return (NULL);
+		line = ft_calloc(1,1);
+	res = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	size = 1;
 	while (size > 0)
 	{
@@ -195,13 +110,13 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-int	main(void)
-{
-	int fd;
+// int	main(void)
+// {
+// 	int fd;
 
-	fd = open("test.txt", O_RDONLY);
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	printf("%s",get_next_line(fd));
+// 	printf("%s",get_next_line(fd));
+// 	printf("%s",get_next_line(fd));
+// 	return (0);
+// }
