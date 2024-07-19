@@ -69,25 +69,28 @@ char    *ft_strchr(const char *s, int c)
 
 char    *ft_strjoin(char const *s1, char const *s2)
 {
-        unsigned int    totallen;
-        unsigned int    i;
-        char                    *res;
+        int        totallen;
+        int        i;
+        int        j;
+        char    *res;
 
-        if (!s1 || !s2)
-                return (0);
         totallen = ft_strlen(s1) + ft_strlen(s2);
         res = (char *) malloc(sizeof(char) * (totallen + 1));
-        if (res == NULL)
-                return (NULL);
-        i = -1;
-        while (++i < ft_strlen(s1))
-                *(res + i) = *(s1 + i);
-        while (i < totallen)
+        if (!res || !s1 || !s2)
+            return (NULL);
+        i = 0;
+        while (s1[i] != '\0')
         {
-                *(res + i) = *s2;
-                s2++;
-                i++;
+            res[i] = s1[i];
+            i++;
         }
-        *(res + i) = '\0';
+        j = 0;
+        while (s2[j] != 0)
+        {
+            res[i] = s2[j];
+            j++;
+            i++;
+        }
+        res[i] = '\0';
         return (res);
 }
